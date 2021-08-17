@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'trackingapp',
-    'djangorestframework'
+    'djangorestframework',
+    'bootstrap3',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
