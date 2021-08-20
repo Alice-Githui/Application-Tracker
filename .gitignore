@@ -1,3 +1,4 @@
 virtual/
 migrations
+__pycache__
 
