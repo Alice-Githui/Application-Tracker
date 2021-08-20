@@ -35,7 +35,7 @@ class SignUpSerializer(serializers.ModelSerializer):
         user=User.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
-            bio=validated_data['bio']
+            # bio=validated_data['bio']
         )
         user.set_password(validated_data['password'])
         user.save()
