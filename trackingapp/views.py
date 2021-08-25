@@ -6,6 +6,7 @@ from django.core.checks import messages
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
+import jwt, datetime
 
 # Create your views here.
 class RegisterApiView(generics.CreateAPIView):
@@ -44,9 +45,18 @@ class LoginUser(APIView):
             # to check if the password is correct
             raise AuthenticationFailed('Incorrect Password')
 
+        payload={
+            # user id to identify the user
+            "id":user.id,
+            # use datetime to define how long the token is valid. The token is valid for 60 minutes
+            'exp':datetime.datetime.utcnow() +datetime.timedelta(minutes=60), 
+            # date when the token is created
+            'iat':datetime.datetime.utcnow()
+        }
+
+        token=jwt.encode(payload, 'secret', algorithm='HS256')
+
         return Response({
-            "message":"success"
+            'jwt':token
         })
-
-
 
