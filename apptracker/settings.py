@@ -40,12 +40,14 @@ INSTALLED_APPS = [
     'trackingapp',
     'rest_framework',
     'bootstrap3',
-    'cloudinary'
+    'cloudinary',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -129,3 +131,9 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# cors
+# the below setting allows the backend/cookies to communicate from any other port, even when it is not a django port
+CORS_ORIGIN_ALLOW_ALL=True
+# allows the backend and frontend to communicate. the frontend is able to get the cookies that are set once a user logs in
+CORS_ALLOW_CREDENTIALS=True
