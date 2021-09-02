@@ -7,6 +7,7 @@ from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
+from django.http import Http404
 
 # Create your views here.
 class RegisterApiView(generics.CreateAPIView):
@@ -95,6 +96,8 @@ class LogoutView(APIView):
 
 class ApplicationView(APIView):
     serializer_class=ApplicationSerializer
+
+    # post a new application to database
     def post(self, request, format=None):
         serializers=self.serializer_class(data=request.data)
         if serializers.is_valid():
@@ -112,7 +115,30 @@ class ApplicationView(APIView):
             return Response(response, status=status.HTTP_200_OK)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    # get all application entries
     def get(self, request, format=None):
         applications=Application.objects.all()
         serializers=ApplicationSerializer(applications, many=True)
         return Response(serializers.data)
+
+class ApplicationDetails(APIView):
+    def get_application(self, pk):
+        try:
+            return Application.objects.get(pk=pk)
+        except:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        application=self.get_application(pk)
+        serializers=ApplicationSerializer(application)
+        return Response(serializers.data)
+
+    # put request to update an existing application
+    def put(self, request, pk, format=None):
+        application=self.get_application(pk=pk)
+        serializers=ApplicationSerializer(application, request.data)
+        if serializers.is_valid(raise_exception=True):
+            serializers.save()
+            return Response(serializers.data)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
