@@ -42,4 +42,9 @@ class SignUpSerializer(serializers.ModelSerializer):
 
         return user
 
+class ApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Application
+        fields="__all__"
+
 

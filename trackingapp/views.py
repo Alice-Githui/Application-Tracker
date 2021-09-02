@@ -93,3 +93,26 @@ class LogoutView(APIView):
 
         return response
 
+class ApplicationView(APIView):
+    serializer_class=ApplicationSerializer
+    def post(self, request, format=None):
+        serializers=self.serializer_class(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            applications=serializers.data
+
+            response={
+                "data":{
+                    "new_entry":dict(applications),
+                    "status":"Success",
+                    "message":"New entry made successfully"
+                }
+            }
+
+            return Response(response, status=status.HTTP_200_OK)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, format=None):
+        applications=Application.objects.all()
+        serializers=ApplicationSerializer(applications, many=True)
+        return Response(serializers.data)
