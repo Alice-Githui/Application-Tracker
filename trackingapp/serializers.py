@@ -58,6 +58,12 @@ class SuccessSerializer(serializers.ModelSerializer):
         model=Application
         fields="__all__"
 
+# post request for applications
+class PostSuccessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=AppSuccessful
+        fields=['application']
+
 # create a serializer that patches the model at two weeks
 class AppSuccessSerializer2(serializers.ModelSerializer):
     class Meta:
@@ -65,13 +71,13 @@ class AppSuccessSerializer2(serializers.ModelSerializer):
         fields=['twoWeeks']
 
 # create a serializer that patches the model at four weeks
-class AppSuccess4(serializers.ModelSerializer):
+class AppSuccessSerializer4(serializers.ModelSerializer):
     class Meta:
         model=AppSuccessful
         fields=['fourWeeks']
 
 # create a serializer that patches the model at eight weeks
-class AppSuccess8(serializers.ModelSerializer):
+class AppSuccessSerializer8(serializers.ModelSerializer):
     class Meta:
         model=AppSuccessful
         fields=['eightWeeks']
@@ -83,7 +89,7 @@ class AppSuccess8(serializers.ModelSerializer):
 #         fields=['completed']
 
 # # create a serializer that patches the model at the interview dates
-class AppSuccess(serializers.ModelSerializer):
+class AppSuccessSerailizer(serializers.ModelSerializer):
     class Meta:
         model=AppSuccessful
         fields=['interviewDates']

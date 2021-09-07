@@ -163,6 +163,7 @@ class AcceptedDetails(generics.CreateAPIView):
             return Response(unsuccessful)
         return Response(status.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# get all applications where the applications are masked as successful
 class GetAllApplications(APIView):
     serializer_class=SuccessSerializer
 
@@ -170,6 +171,29 @@ class GetAllApplications(APIView):
         apps=Application.objects.filter(successful=True)
         serializers=self.serializer_class(apps, many=True)
         return Response(serializers.data)
+
+# post on the app successful model
+class AppSuccessful(generics.CreateAPIView):
+    serializer_class=PostSuccessSerializer
+
+    def post(self, request, pk, format=None):
+        app=Application.objects.get(pk=pk)
+        serializers=self.serializer_class(data=request.data)
+
+        if serializers.is_valid(raise_exception=True):
+            app.successful=True
+            app.save()
+            serializers.save() 
+            app_data=serializers.data
+
+            response={
+                "data":dict(app_data),
+                "status":"success",
+                "message":"Application made successfully"
+            }
+            return Response(response, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class AppSuccess2(generics.CreateAPIView):

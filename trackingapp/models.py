@@ -17,7 +17,7 @@ class Application(models.Model):
     companyName=models.CharField(max_length=500)
     jobTitle=models.CharField(max_length=500)
     description=models.CharField(max_length=800)
-    issuccessful=models.BooleanField(default=False)
+    notsuccessful=models.BooleanField(default=False)
     successful=models.BooleanField(default=False)
 
     def __str__(self):

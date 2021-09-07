@@ -9,6 +9,7 @@ urlpatterns=[
     path('api/make-entry/', views.ApplicationView.as_view(), name="new-application-entry"),
     path('api/edit-entry/<pk>/', views.ApplicationDetails.as_view(), name="application-details"),
     path('api/unsuccessful-entry/<pk>/', views.AcceptedDetails.as_view(), name="unsuccessful"),
+    path('api/app-successful/<pk>/',views.AppSuccessful.as_view(), name="app-successful"),
     path('api/all-successful/',GetAllApplications.as_view(), name="allsuccessful"),
     path('api/success/two/<pk>/',views.AppSuccess2.as_view(), name="two-weeks"),
     path('api/logout/', views.LogoutView.as_view(), name="logout-user")
