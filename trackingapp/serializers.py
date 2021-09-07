@@ -52,4 +52,40 @@ class isAcceptedSerializer(serializers.ModelSerializer):
         model=Application
         fields=['successful']
 
+# serializers to filter by successful applications
+class SuccessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Application
+        fields="__all__"
+
+# create a serializer that patches the model at two weeks
+class AppSuccessSerializer2(serializers.ModelSerializer):
+    class Meta:
+        model=AppSuccessful
+        fields=['twoWeeks']
+
+# create a serializer that patches the model at four weeks
+class AppSuccess4(serializers.ModelSerializer):
+    class Meta:
+        model=AppSuccessful
+        fields=['fourWeeks']
+
+# create a serializer that patches the model at eight weeks
+class AppSuccess8(serializers.ModelSerializer):
+    class Meta:
+        model=AppSuccessful
+        fields=['eightWeeks']
+
+# create a serializer that patches the model at the end o weeks
+# class AppSuccess(serializers.ModelSerializer):
+#     class Meta:
+#         model=AppSuccessful
+#         fields=['completed']
+
+# # create a serializer that patches the model at the interview dates
+class AppSuccess(serializers.ModelSerializer):
+    class Meta:
+        model=AppSuccessful
+        fields=['interviewDates']
+
 

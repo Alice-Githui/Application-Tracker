@@ -163,3 +163,26 @@ class AcceptedDetails(generics.CreateAPIView):
             return Response(unsuccessful)
         return Response(status.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class GetAllApplications(APIView):
+    serializer_class=SuccessSerializer
+
+    def get(self, request, format=True):
+        apps=Application.objects.filter(successful=True)
+        serializers=self.serializer_class(apps, many=True)
+        return Response(serializers.data)
+
+
+class AppSuccess2(generics.CreateAPIView):
+    serializer_class=AppSuccessSerializer2
+
+    def patch(self, request, pk, format=None):
+        app=Application.objects.get(pk=pk)
+
+        serializers=AppSuccessSerializer2(app,request.data, partial=True)
+
+        if serializers.is_valid(raise_exception=True):
+            serializers.save(twoWeeks=True)
+
+            return Response(serializers.data)
+        return Response(status.errors, status=status.HTTP_400_BAD_REQUEST)
+

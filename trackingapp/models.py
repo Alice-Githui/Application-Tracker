@@ -23,14 +23,6 @@ class Application(models.Model):
     def __str__(self):
         return self.companyName
 
-# class isAccepted(models.Model):
-#     application=models.OneToOneField(Application, on_delete=models.CASCADE)
-#     success=models.BooleanField(default=False)
-#     unsuccessful=models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return str(self.application)
-
 class AppSuccessful(models.Model):
     application=models.ForeignKey(Application, on_delete=models.CASCADE)
     twoWeeks=models.BooleanField(default=False)
