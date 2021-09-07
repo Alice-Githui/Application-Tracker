@@ -147,3 +147,19 @@ class ApplicationDetails(APIView):
         application=self.get_application(pk)
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class AcceptedDetails(generics.CreateAPIView):
+    serializer_class=isAcceptedSerializer
+
+    def patch(self, request, pk, format=None):
+        app=Application.objects.get(pk=pk)
+
+        serializers=isAcceptedSerializer(app, request.data, partial=True)
+
+        if serializers.is_valid(raise_exception=True):
+            serializers.save(successful=True)
+            unsuccessful=serializers.data
+
+            return Response(unsuccessful)
+        return Response(status.errors, status=status.HTTP_400_BAD_REQUEST)
+

@@ -17,17 +17,19 @@ class Application(models.Model):
     companyName=models.CharField(max_length=500)
     jobTitle=models.CharField(max_length=500)
     description=models.CharField(max_length=800)
+    issuccessful=models.BooleanField(default=False)
+    successful=models.BooleanField(default=False)
 
     def __str__(self):
         return self.companyName
 
-class isAccepted(models.Model):
-    application=models.OneToOneField(Application, on_delete=models.CASCADE)
-    success=models.BooleanField(default=False)
-    unsuccessful=models.BooleanField(default=False)
+# class isAccepted(models.Model):
+#     application=models.OneToOneField(Application, on_delete=models.CASCADE)
+#     success=models.BooleanField(default=False)
+#     unsuccessful=models.BooleanField(default=False)
 
-    def __str__(self):
-        return str(self.application)
+#     def __str__(self):
+#         return str(self.application)
 
 class AppSuccessful(models.Model):
     application=models.ForeignKey(Application, on_delete=models.CASCADE)

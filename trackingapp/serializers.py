@@ -45,6 +45,11 @@ class SignUpSerializer(serializers.ModelSerializer):
 class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model=Application
-        fields="__all__"
+        exclude=['successful', 'issuccessful']
+
+class isAcceptedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Application
+        fields=['successful']
 
 
