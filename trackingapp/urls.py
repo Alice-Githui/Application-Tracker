@@ -10,5 +10,6 @@ urlpatterns=[
     path('api/edit-entry/<pk>/', views.ApplicationDetails.as_view(), name="application-details"),
     path('api/all-successful/',GetAllApplications.as_view(), name="allsuccessful"),
     path('api/new-wishlist-entry/', NewWishListEntry.as_view(), name="new-wishlist-entry"),
+    path('api/wishlist-entry/<pk>/', WishListEntryDetails.as_view(), name="one-wishlist"),
     path('api/logout/', views.LogoutView.as_view(), name="logout-user")
 ]

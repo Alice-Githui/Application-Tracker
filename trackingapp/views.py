@@ -184,6 +184,38 @@ class NewWishListEntry(APIView):
             return Response(response, status=status.HTTP_200_OK)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# API View to get one specific wish entry
+class WishListEntryDetails(APIView):
+    serializer_class=WishListSerializer
+
+    def get_wishlist(self, pk):
+        try:
+            return WishList.objects.get(pk=pk)
+        except:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        wishlist=self.get_wishlist(pk)
+        serializers=WishListSerializer(wishlist)
+        return Response(serializers.data)
+
+    def put(self, request, pk, format=None):
+        wishlist=self.get_wishlist(pk=pk)
+        serializers=WishListSerializer(wishlist, request.data)
+        if serializers.is_valid(raise_exception=True):
+            serializers.save()
+            return Response(serializers.data)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        wishlist=self.get_wishlist(pk)
+        wishlist.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
 
 
 
