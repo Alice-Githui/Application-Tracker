@@ -45,12 +45,8 @@ class SignUpSerializer(serializers.ModelSerializer):
 class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model=Application
-        exclude=['successful', 'issuccessful']
+        fields="__all__"
 
-class isAcceptedSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Application
-        fields=['successful']
 
 # serializers to filter by successful applications
 class SuccessSerializer(serializers.ModelSerializer):
@@ -58,5 +54,9 @@ class SuccessSerializer(serializers.ModelSerializer):
         model=Application
         fields="__all__"
 
-
+# serializers to create a job wishlist
+class WishListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=WishList
+        fields="__all__"
 

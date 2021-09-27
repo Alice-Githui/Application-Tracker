@@ -148,20 +148,6 @@ class ApplicationDetails(APIView):
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class AcceptedDetails(generics.CreateAPIView):
-    serializer_class=isAcceptedSerializer
-
-    def patch(self, request, pk, format=None):
-        app=Application.objects.get(pk=pk)
-
-        serializers=isAcceptedSerializer(app, request.data, partial=True)
-
-        if serializers.is_valid(raise_exception=True):
-            serializers.save(successful=True)
-            unsuccessful=serializers.data
-
-            return Response(unsuccessful)
-        return Response(status.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # get all applications where the applications are masked as successful
 class GetAllApplications(APIView):
@@ -171,4 +157,28 @@ class GetAllApplications(APIView):
         apps=Application.objects.filter(successful=True)
         serializers=self.serializer_class(apps, many=True)
         return Response(serializers.data)
+
+# API view to create a new wishlist entry
+class NewWishListEntry(generics.CreateAPIView):
+    serializer_class=WishListSerializer
+
+    def post(self, request, format=True):
+        serializers=self.serializer_class(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            new_wishlist=serializers.data
+
+            response={
+                "data":{
+                    "new_entry":dict(new_wishlist),
+                    "status": "Success",
+                    "message": "New entry has been made successfully"
+                }
+            }
+
+            return Response(response, status=status.HTTP_200_OK)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
