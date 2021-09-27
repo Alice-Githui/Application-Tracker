@@ -296,7 +296,36 @@ class OfferDetails(APIView):
             return Response(response, status=status.HTTP_200_OK)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class OneOfferDetail(APIView):
+    serializer_class=OfferSerializer
 
+    # get an offer using id
+    def get_offer(self, pk):
+        try:
+            return Offer.objects.get(pk=pk)
+        except:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        offer=self.get_offer(pk)
+        serializers=OfferSerializer(offer)
+        return Response(serializers.data)
+
+    # get and amend details for one offer
+    def put(self, request, pk, format=None):
+        offer=Offer.objects.get(pk=pk)
+        serializer=self.serializer_class(offer, request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # delete an offer from the list of offers
+    def delete(self, request, pk, format=None):
+        offer=OfferSerializer.objects.get(pk=pk)
+        offer.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
