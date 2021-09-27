@@ -268,6 +268,34 @@ class InterviewDetails(APIView):
         interview.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# API endpoint to post a new offer
+class OfferDetails(APIView):
+    serializer_class=OfferSerializer
+
+    #  get all offers
+    def get(self, request, format=None):
+        received_offers=Offer.objects.all()
+        serializers=self.serializer_class(received_offers, many=True)
+        return Response(serializers.data)
+
+    # post a new offer
+    def post(self, request, format=None):
+        serializers=OfferSerializer(data=request.data)
+        if serializers.is_valid(raise_exception=True):
+            serializers.save()
+            offers=serializers.data
+
+            response={
+                "data":{
+                    "new-entry":dict(offers),
+                    "status":"Success",
+                    "message": "New offer was made"
+                }
+            }
+
+            return Response(response, status=status.HTTP_200_OK)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 

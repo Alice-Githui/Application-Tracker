@@ -14,5 +14,6 @@ urlpatterns=[
     path('api/all-interviews/', GetAllInterviews.as_view(), name="all-interviews"),
     path('api/interviews/', Interviews.as_view(), name="interviews"),
     path('api/get-one-interview/<pk>/', InterviewDetails.as_view(), name="one-interview"),
+    path('api/new-offer/',OfferDetails.as_view(), name="new-offer"),
     path('api/logout/', views.LogoutView.as_view(), name="logout-user")
 ]
