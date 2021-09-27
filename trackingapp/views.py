@@ -159,8 +159,13 @@ class GetAllApplications(APIView):
         return Response(serializers.data)
 
 # API view to create a new wishlist entry
-class NewWishListEntry(generics.CreateAPIView):
+class NewWishListEntry(APIView):
     serializer_class=WishListSerializer
+
+    def get(self, request, format=None):
+        wishlist_entries=WishList.objects.all()
+        serializers=self.serializer_class(wishlist_entries, many=True)
+        return Response(serializers.data)
 
     def post(self, request, format=True):
         serializers=self.serializer_class(data=request.data)
@@ -178,6 +183,7 @@ class NewWishListEntry(generics.CreateAPIView):
 
             return Response(response, status=status.HTTP_200_OK)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
