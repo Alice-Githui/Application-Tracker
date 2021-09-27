@@ -10,6 +10,15 @@ from django.contrib.auth.models import User
 
 #     def __str__(self):
 #         return self.name
+
+class WishList(models.Model):
+    companyName=models.CharField(max_length=500)
+    position=models.CharField(max_length=300)
+    location=models.CharField(max_length=300)
+    website=models.URLField(max_length=1000)
+
+    def __str__(self):
+        return self.companyName
         
 
 class Application(models.Model):
