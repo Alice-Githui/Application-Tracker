@@ -39,3 +39,11 @@ class Interview(models.Model):
     def __str__(self):
         return str(self.application)
 
+class Offer(models.Model):
+    offer=models.OneToOneField(Interview, on_delete=models.CASCADE)
+    offer_date=models.DateTimeField(auto_now_add=True)
+    offer_summary=models.TextField()
+
+    def __str__(self):
+        return str(self.offer.application)
+

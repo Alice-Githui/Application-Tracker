@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Application)
 admin.site.register(WishList)
 admin.site.register(Interview)
+admin.site.register(Offer)
