@@ -31,3 +31,11 @@ class Application(models.Model):
     def __str__(self):
         return self.companyName
 
+class Interviews(models.Model):
+    application=models.ForeignKey(Application, on_delete=models.CASCADE)
+    date=models.DateTimeField()
+    location=models.CharField(max_length=300)
+
+    def __str__(self):
+        return str(self.application.companyName)
+
