@@ -11,5 +11,7 @@ urlpatterns=[
     path('api/all-successful/',GetAllApplications.as_view(), name="allsuccessful"),
     path('api/new-wishlist-entry/', NewWishListEntry.as_view(), name="new-wishlist-entry"),
     path('api/wishlist-entry/<pk>/', WishListEntryDetails.as_view(), name="one-wishlist"),
+    path('api/all-interviews/', GetAllInterviews.as_view(), name="all-interviews"),
+    path('api/interviews/', Interviews.as_view(), name="interviews"),
     path('api/logout/', views.LogoutView.as_view(), name="logout-user")
 ]

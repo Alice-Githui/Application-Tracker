@@ -60,3 +60,8 @@ class WishListSerializer(serializers.ModelSerializer):
         model=WishList
         fields="__all__"
 
+class InterviewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Interview
+        fields="__all__"
+

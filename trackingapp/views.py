@@ -213,6 +213,33 @@ class WishListEntryDetails(APIView):
         wishlist.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class Interviews(APIView):
+    serializer_class=InterviewsSerializer
+
+    def post(self, request, format=None):
+    
+        serializers=InterviewsSerializer(data=request.data)
+        if serializers.is_valid(raise_exception=True):
+            serializers.save()
+            interview=serializers.data
+
+            response={
+                "data":{
+                    "new_entry":dict(interview),
+                    "status":"Success",
+                    "message": "New Interview set successfully"
+                }
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GetAllInterviews(APIView):
+    serializer_class=InterviewsSerializer
+
+    def get(self, request, format=None):
+        interviews=Interview.objects.all()
+        serializers=InterviewsSerializer(interviews, many=True)
+        return Response(serializers.data)
 
 
 
