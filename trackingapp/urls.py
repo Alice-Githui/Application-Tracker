@@ -13,5 +13,6 @@ urlpatterns=[
     path('api/wishlist-entry/<pk>/', WishListEntryDetails.as_view(), name="one-wishlist"),
     path('api/all-interviews/', GetAllInterviews.as_view(), name="all-interviews"),
     path('api/interviews/', Interviews.as_view(), name="interviews"),
+    path('api/get-one-interview/<pk>/', InterviewDetails.as_view(), name="one-interview"),
     path('api/logout/', views.LogoutView.as_view(), name="logout-user")
 ]

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .serializers import *
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -240,6 +240,34 @@ class GetAllInterviews(APIView):
         interviews=Interview.objects.all()
         serializers=InterviewsSerializer(interviews, many=True)
         return Response(serializers.data)
+
+class InterviewDetails(APIView):
+    # get one interview
+    def get_interviewdetails(self, pk):
+        try:
+            return Interview.objects.get(pk=pk)
+        except:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        interview=self.get_interviewdetails(pk)
+        serializers=InterviewsSerializer(interview)
+        return Response(serializers.data)
+
+    # put request for one interview
+    def put(self, request, pk, format=None):
+        interview=Interview.objects.get(pk=pk)
+        serializers=InterviewsSerializer(interview, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        interview=Interview.objects.get(pk=pk)
+        interview.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 
