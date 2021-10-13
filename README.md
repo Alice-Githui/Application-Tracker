@@ -1,9 +1,13 @@
 ## APPLICATION TRACKER
-- This application was created by Alice Githui
+- This application was created by Alice Githui.
+- This is the backend of the application created using Django Rest Framework
 
 ## Purpose
-The purpose of this application is to track all applications made by users from the point where they make an application to when they get either a positive response or a rejection. The application tracker tracks in stages i.e.
-- First entry which is when the application is made
-- Mark the application to the next stage after about three weeks if there is no response 
-- Mark all acceptances/scheduled interview and mark the interview date(s) and track with the respective dates
-- Mark all rejections received from applications
+This is a job tracking application. This application allows a registered user to:
+- List down their dream jobs and dream companies and potential contacts for the jobs they are looking to apply to
+- Make note of all applications that the user makes
+- Note all the job applications with positive feedback and set the interview times/dates and note that if they are remote or physical
+- Note the offers offered by the various companies. 
+
+
+## Possible Improvements to the application
