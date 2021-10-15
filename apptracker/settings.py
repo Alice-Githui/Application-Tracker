@@ -137,3 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL=True
 # allows the backend and frontend to communicate. the frontend is able to get the cookies that are set once a user logs in
 CORS_ALLOW_CREDENTIALS=True
+
+CORS_ALLOWED_ORIGINS=[
+    'http://localhost:4200',
+]
