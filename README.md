@@ -11,4 +11,5 @@ This is a job tracking application. This application allows a registered user to
 
 
 ## Possible Improvements to the application
+- send emails to the user to congratulate them on receiving an offer
 
