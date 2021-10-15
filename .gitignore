@@ -1,4 +1,6 @@
 virtual/
 migrations
 __pycache__
+.env
+
 
